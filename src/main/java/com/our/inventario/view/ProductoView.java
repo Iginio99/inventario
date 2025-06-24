@@ -2,6 +2,7 @@ package com.our.inventario.view;
 
 import com.our.inventario.model.Categoria;
 import com.our.inventario.model.Producto;
+import java.awt.MouseInfo;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -11,6 +12,7 @@ public class ProductoView extends javax.swing.JFrame {
 
     private DefaultTableModel tblModelo = new DefaultTableModel();
     private DefaultComboBoxModel<Categoria> cbxModel = new DefaultComboBoxModel<>();
+    
 
     public ProductoView() {
         initComponents();
@@ -23,16 +25,19 @@ public class ProductoView extends javax.swing.JFrame {
 
         nuevoProductoDialog = new javax.swing.JDialog();
         jLabel2 = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
+        txtNombreProducto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtDescripcion = new javax.swing.JTextField();
+        txtDescripcionProducto = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         cbxCategorias = new javax.swing.JComboBox<>();
-        txtPrecio = new javax.swing.JTextField();
+        txtPrecioProducto = new javax.swing.JTextField();
         btnRegistrarNuevoProducto = new javax.swing.JButton();
         btnCloseNuevoProducto = new javax.swing.JButton();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        popupEditarProd = new javax.swing.JMenuItem();
+        popupEliminarProd = new javax.swing.JMenuItem();
         btnOpenNuevoProducto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
@@ -79,10 +84,10 @@ public class ProductoView extends javax.swing.JFrame {
                                     .addComponent(jLabel5))))
                         .addGap(28, 28, 28)
                         .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNombre)
-                            .addComponent(txtDescripcion)
+                            .addComponent(txtNombreProducto)
+                            .addComponent(txtDescripcionProducto)
                             .addComponent(cbxCategorias, 0, 109, Short.MAX_VALUE)
-                            .addComponent(txtPrecio))))
+                            .addComponent(txtPrecioProducto))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nuevoProductoDialogLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
@@ -98,12 +103,12 @@ public class ProductoView extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescripcionProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -111,13 +116,24 @@ public class ProductoView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrecioProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(68, 68, 68)
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarNuevoProducto)
                     .addComponent(btnCloseNuevoProducto))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
+
+        popupEditarProd.setText("Editar");
+        popupEditarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                popupEditarProdActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(popupEditarProd);
+
+        popupEliminarProd.setText("Eliminar");
+        jPopupMenu1.add(popupEliminarProd);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +160,11 @@ public class ProductoView extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        tblProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblProductos);
@@ -184,6 +205,16 @@ public class ProductoView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
+        int nPosX = MouseInfo.getPointerInfo().getLocation().x;
+        int nPosY = MouseInfo.getPointerInfo().getLocation().y;
+        jPopupMenu1.show(this, nPosX, nPosY);
+    }//GEN-LAST:event_tblProductosMouseClicked
+
+    private void popupEditarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popupEditarProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_popupEditarProdActionPerformed
 
     private void initTable() {
         tblModelo.addColumn("ID");
@@ -243,11 +274,14 @@ public class ProductoView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JDialog nuevoProductoDialog;
+    private javax.swing.JMenuItem popupEditarProd;
+    private javax.swing.JMenuItem popupEliminarProd;
     private javax.swing.JTable tblProductos;
-    private javax.swing.JTextField txtDescripcion;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtDescripcionProducto;
+    private javax.swing.JTextField txtNombreProducto;
+    private javax.swing.JTextField txtPrecioProducto;
     // End of variables declaration//GEN-END:variables
 }

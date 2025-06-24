@@ -16,12 +16,34 @@ public class MenuController {
     public MenuController() {
         this.menuView = new MenuView();
         this.menuView.setOnOpenProductos(e -> abrirGestionProductos());
+        this.menuView.setOnOpenCategorias(e-> abrirGestionCategorias());
+        this.menuView.setOnOpenCategorias(e-> abrirGestionAlmacenes());        
+        this.menuView.setOnOpenCategorias(e-> abrirGestionStock());
+
     }
 
     private void abrirGestionProductos() {
         var categorias = Servicios.getCategoriaService().listar();
         Sesion.setCategorias(categorias);
         var controller = new ProductoController(Servicios.getProductoService());
+        menuView.cerrar();
+        controller.mostrarVista();
+    }
+    
+    private void abrirGestionCategorias(){
+        var controller = new CategoriaController(Servicios.getCategoriaService());
+        menuView.cerrar();
+        controller.mostrarVista();
+    }
+    
+    private void abrirGestionAlmacenes(){
+        var controller = new AlmacenController(/*Servicios.getCategoriaService()*/);
+        menuView.cerrar();
+        controller.mostrarVista();
+    }
+    
+    private void abrirGestionStock(){
+        var controller = new StockController(/*Servicios.getCategoriaService()*/);
         menuView.cerrar();
         controller.mostrarVista();
     }

@@ -111,11 +111,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="btnProveedores" max="32767" attributes="0"/>
                           <Component id="btnProducto" max="32767" attributes="0"/>
-                          <Component id="btnCategorias" max="32767" attributes="0"/>
+                          <Component id="btnCategorias" pref="156" max="32767" attributes="0"/>
                           <Component id="btnStocks" max="32767" attributes="0"/>
                           <Component id="btnAlmacen3" max="32767" attributes="0"/>
+                          <Component id="btnAlmacenes" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
@@ -126,12 +126,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="btnProducto" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="btnProveedores" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="btnCategorias" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="btnStocks" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                      <Component id="btnAlmacenes" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnAlmacen3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
@@ -144,11 +144,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Productos"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnProveedores">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Proveedores"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCategorias">
               <Properties>
@@ -163,6 +161,11 @@
             <Component class="javax.swing.JButton" name="btnAlmacen3">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cerrar Sesi&#xf3;n"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="btnAlmacenes">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Gesti&#xf3;n de Almacen"/>
               </Properties>
             </Component>
           </SubComponents>

@@ -17,10 +17,10 @@ public class MenuView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnProducto = new javax.swing.JButton();
-        btnProveedores = new javax.swing.JButton();
         btnCategorias = new javax.swing.JButton();
         btnStocks = new javax.swing.JButton();
         btnAlmacen3 = new javax.swing.JButton();
+        btnAlmacenes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,14 +49,19 @@ public class MenuView extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(28, 62, 90));
 
         btnProducto.setText("Gestión de Productos");
-
-        btnProveedores.setText("Gestión de Proveedores");
+        btnProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductoActionPerformed(evt);
+            }
+        });
 
         btnCategorias.setText("Gestión de Categorías");
 
         btnStocks.setText("Gestión de Stock");
 
         btnAlmacen3.setText("Cerrar Sesión");
+
+        btnAlmacenes.setText("Gestión de Almacen");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -65,11 +70,11 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
                     .addComponent(btnStocks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAlmacen3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAlmacen3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAlmacenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -77,12 +82,12 @@ public class MenuView extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(btnProducto)
-                .addGap(18, 18, 18)
-                .addComponent(btnProveedores)
-                .addGap(26, 26, 26)
+                .addGap(29, 29, 29)
                 .addComponent(btnCategorias)
-                .addGap(26, 26, 26)
+                .addGap(33, 33, 33)
                 .addComponent(btnStocks)
+                .addGap(38, 38, 38)
+                .addComponent(btnAlmacenes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAlmacen3)
                 .addGap(19, 19, 19))
@@ -120,8 +125,24 @@ public class MenuView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProductoActionPerformed
+
     public void setOnOpenProductos(ActionListener listener){
         btnProducto.addActionListener(listener);
+    }
+    
+    public void setOnOpenCategorias(ActionListener listener){
+        btnCategorias.addActionListener(listener);
+    }
+    
+    public void setOnOpenStock(ActionListener listener){
+        btnStocks.addActionListener(listener);
+    }
+    
+    public void setOnOpenAlmacen(ActionListener listener){
+        btnAlmacenes.addActionListener(listener);
     }
     
     public void cerrar(){
@@ -134,9 +155,9 @@ public class MenuView extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlmacen3;
+    private javax.swing.JButton btnAlmacenes;
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnProducto;
-    private javax.swing.JButton btnProveedores;
     private javax.swing.JButton btnStocks;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
