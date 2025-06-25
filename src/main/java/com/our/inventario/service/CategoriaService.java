@@ -1,5 +1,40 @@
 package com.our.inventario.service;
 
+import com.our.inventario.model.Categoria;
+import com.our.inventario.model.repository.CategoriaRepository;
+import java.util.List;
+
+public class CategoriaService {
+
+    private final CategoriaRepository repo;
+
+    public CategoriaService(CategoriaRepository repo) {
+        this.repo = repo;
+    }
+
+    public List<Categoria> listar() {
+        return repo.listar();
+    }
+
+    public Categoria obtenerPorId(int id) {
+        return repo.obtenerPorId(id);
+    }
+
+    public boolean insertar(Categoria categoria) {
+        return repo.insertar(categoria);
+    }
+
+    public boolean actualizar(Categoria categoria) {
+        return repo.actualizar(categoria);
+    }
+
+    public boolean eliminar(int id) {
+        return repo.eliminar(id);
+    }
+}
+
+/*package com.our.inventario.service;
+
 import java.util.List;
 import com.our.inventario.model.Categoria;
 import com.our.inventario.model.repository.CategoriaRepository;
@@ -68,3 +103,4 @@ public class CategoriaService {
         }
     }
 }
+*/

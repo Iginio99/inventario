@@ -2,11 +2,11 @@ package com.our.inventario.view;
 
 import com.our.inventario.model.Categoria;
 import com.our.inventario.model.Producto;
-import java.awt.MouseInfo;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class ProductoView extends javax.swing.JFrame {
@@ -24,7 +24,7 @@ public class ProductoView extends javax.swing.JFrame {
     private void initComponents() {
 
         nuevoProductoDialog = new javax.swing.JDialog();
-        jLabel2 = new javax.swing.JLabel();
+        lblProducto = new javax.swing.JLabel();
         txtNombreProducto = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -35,17 +35,20 @@ public class ProductoView extends javax.swing.JFrame {
         txtPrecioProducto = new javax.swing.JTextField();
         btnRegistrarNuevoProducto = new javax.swing.JButton();
         btnCloseNuevoProducto = new javax.swing.JButton();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jLabel7 = new javax.swing.JLabel();
+        txtMarca = new javax.swing.JTextField();
+        popupMenu = new javax.swing.JPopupMenu();
         popupEditarProd = new javax.swing.JMenuItem();
         popupEliminarProd = new javax.swing.JMenuItem();
         btnOpenNuevoProducto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
 
         nuevoProductoDialog.setMinimumSize(new java.awt.Dimension(324, 361));
 
-        jLabel2.setText("Nuevo Producto");
+        lblProducto.setText("Nuevo Producto");
 
         jLabel3.setText("Nombre");
 
@@ -59,6 +62,8 @@ public class ProductoView extends javax.swing.JFrame {
 
         btnCloseNuevoProducto.setText("Cancelar");
 
+        jLabel7.setText("Marca");
+
         javax.swing.GroupLayout nuevoProductoDialogLayout = new javax.swing.GroupLayout(nuevoProductoDialog.getContentPane());
         nuevoProductoDialog.getContentPane().setLayout(nuevoProductoDialogLayout);
         nuevoProductoDialogLayout.setHorizontalGroup(
@@ -67,7 +72,7 @@ public class ProductoView extends javax.swing.JFrame {
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(nuevoProductoDialogLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel2))
+                        .addComponent(lblProducto))
                     .addGroup(nuevoProductoDialogLayout.createSequentialGroup()
                         .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(nuevoProductoDialogLayout.createSequentialGroup()
@@ -81,13 +86,15 @@ public class ProductoView extends javax.swing.JFrame {
                                 .addGap(46, 46, 46)
                                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
-                                    .addComponent(jLabel5))))
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7))))
                         .addGap(28, 28, 28)
                         .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNombreProducto)
                             .addComponent(txtDescripcionProducto)
                             .addComponent(cbxCategorias, 0, 109, Short.MAX_VALUE)
-                            .addComponent(txtPrecioProducto))))
+                            .addComponent(txtPrecioProducto)
+                            .addComponent(txtMarca))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nuevoProductoDialogLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
@@ -100,7 +107,7 @@ public class ProductoView extends javax.swing.JFrame {
             nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nuevoProductoDialogLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel2)
+                .addComponent(lblProducto)
                 .addGap(18, 18, 18)
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -117,18 +124,22 @@ public class ProductoView extends javax.swing.JFrame {
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtPrecioProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
                 .addGroup(nuevoProductoDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarNuevoProducto)
                     .addComponent(btnCloseNuevoProducto))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         popupEditarProd.setText("Editar");
-        jPopupMenu1.add(popupEditarProd);
+        popupMenu.add(popupEditarProd);
 
         popupEliminarProd.setText("Eliminar");
-        jPopupMenu1.add(popupEliminarProd);
+        popupMenu.add(popupEliminarProd);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -168,6 +179,8 @@ public class ProductoView extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 137, 206));
         jLabel1.setText("Gestión de Productos");
 
+        btnRegresar.setText("Regresar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -182,18 +195,19 @@ public class ProductoView extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnOpenNuevoProducto)
-                        .addGap(14, 14, 14))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRegresar)
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnOpenNuevoProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnOpenNuevoProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -202,9 +216,11 @@ public class ProductoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductosMouseClicked
-        int nPosX = MouseInfo.getPointerInfo().getLocation().x;
-        int nPosY = MouseInfo.getPointerInfo().getLocation().y;
-        jPopupMenu1.show(this, nPosX, nPosY);
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            int nPosX = evt.getX();
+            int nPosY = evt.getY();
+            popupMenu.show(evt.getComponent(), nPosX, nPosY);
+        }
     }//GEN-LAST:event_tblProductosMouseClicked
 
     private void initTable() {
@@ -212,6 +228,10 @@ public class ProductoView extends javax.swing.JFrame {
         tblModelo.addColumn("Nombre");
         tblModelo.addColumn("Descripción");
         tblModelo.addColumn("Categoría");
+    }
+    
+    public void limpiarDatos(){
+        
     }
 
     private void actualizarTabla(List<Producto> productos) {
@@ -242,8 +262,25 @@ public class ProductoView extends javax.swing.JFrame {
 
     public void mostrarRegistroProducto(List<Categoria> categorias) {
         setCategorias(categorias);
-        System.out.println("se abrio");
+        lblProducto.setText("Nuevo producto");
+        btnRegistrarNuevoProducto.setText("Registar");
         nuevoProductoDialog.setVisible(true);
+    }
+    
+    public void mostrarEditarProducto(List<Categoria> categorias, Producto producto) {
+        setCategorias(categorias);
+        lblProducto.setText("Editar producto");
+        btnRegistrarNuevoProducto.setText("Editar");
+        txtNombreProducto.setText(producto.getNombre());
+        txtDescripcionProducto.setText(producto.getDescripcion());
+        txtMarca.setText(producto.getMarca());
+        txtPrecioProducto.setText(String.valueOf(producto.getPrecioUnitario()));
+        cbxCategorias.setSelectedItem(producto.getCategoria());
+        nuevoProductoDialog.setVisible(true);
+    }
+
+    public void cerrarVistaNuevoProducto() {
+        nuevoProductoDialog.setVisible(false);
     }
 
     public void setOnRegistroProducto(ActionListener listener) {
@@ -253,11 +290,29 @@ public class ProductoView extends javax.swing.JFrame {
     public void setOnOpenNuevoProducto(ActionListener listener) {
         btnOpenNuevoProducto.addActionListener(listener);
     }
-
-    public void setOnEditarProducto(ActionListener r) {
+    
+    public void setOnOpenEditarProducto(ActionListener listener) {
+        popupEditarProd.addActionListener(listener);
     }
 
-    public void setOnEliminarProducto(ActionListener r) {
+    public void setOnRegresarMenu(ActionListener listener) {
+        btnRegresar.addActionListener(listener);
+    }
+
+    public void setOnCloseNuevoProducto(ActionListener listener) {
+        btnCloseNuevoProducto.addActionListener(listener);
+    }
+
+    public void setOnEditarProducto(ActionListener listener) {
+        popupEditarProd.addActionListener(listener);
+    }
+
+    public void setOnEliminarProducto(ActionListener listener) {
+        popupEliminarProd.addActionListener(listener);
+    }
+
+    public void cerrar() {
+        this.dispose();
     }
 
     public String getSku() {
@@ -269,7 +324,7 @@ public class ProductoView extends javax.swing.JFrame {
     }
 
     public String getDescripcion() {
-        return "";
+        return txtDescripcionProducto.getText();
     }
 
     public Categoria getCategoriaSeleccionada() {
@@ -277,7 +332,7 @@ public class ProductoView extends javax.swing.JFrame {
     }
 
     public String getMarca() {
-        return "";
+        return txtMarca.getText();
     }
 
     public double getPrecio() {
@@ -285,12 +340,15 @@ public class ProductoView extends javax.swing.JFrame {
         return Double.parseDouble(texto);
     }
 
-    public int getIdProducto() {
-        return 0;
-    }
-
     public int getIdProductoSeleccionado() {
-        return 0;
+        int filaSeleccionada = tblProductos.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return -1;
+        }
+
+        Object valor = tblModelo.getValueAt(filaSeleccionada, 0);
+        int id = Integer.parseInt(valor.toString());
+        return id;
     }
 
     public void mostrarMensaje(String mensaje) {
@@ -298,7 +356,7 @@ public class ProductoView extends javax.swing.JFrame {
                 this,
                 mensaje,
                 "Ok",
-                JOptionPane.OK_OPTION
+                JOptionPane.INFORMATION_MESSAGE
         );
     }
 
@@ -311,25 +369,27 @@ public class ProductoView extends javax.swing.JFrame {
         );
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCloseNuevoProducto;
     private javax.swing.JButton btnOpenNuevoProducto;
     private javax.swing.JButton btnRegistrarNuevoProducto;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<Categoria> cbxCategorias;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblProducto;
     private javax.swing.JDialog nuevoProductoDialog;
     private javax.swing.JMenuItem popupEditarProd;
     private javax.swing.JMenuItem popupEliminarProd;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtDescripcionProducto;
+    private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtNombreProducto;
     private javax.swing.JTextField txtPrecioProducto;
     // End of variables declaration//GEN-END:variables

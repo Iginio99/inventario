@@ -9,6 +9,7 @@ import com.our.inventario.view.CategoriaForm;
 public class Inventario {
 
     public static void main(String[] args){
+        
         var conn = DbConnection.getInstance();
         var repo = new UsuarioRepository(conn);
         var service = new UsuarioService(repo);

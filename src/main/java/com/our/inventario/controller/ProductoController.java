@@ -2,8 +2,8 @@ package com.our.inventario.controller;
 
 import com.our.inventario.model.Categoria;
 import com.our.inventario.model.Producto;
+import com.our.inventario.service.CategoriaService;
 import com.our.inventario.service.ProductoService;
-import com.our.inventario.util.Sesion;
 import com.our.inventario.view.ProductoView;
 import java.time.LocalDate;
 import java.util.List;
@@ -11,25 +11,52 @@ import java.util.List;
 public class ProductoController {
 
     private final ProductoService service;
+    private final CategoriaService catService;
     private final ProductoView productView;
+    private boolean isEdit;
 
-    public ProductoController(ProductoService service) {
+    public ProductoController(ProductoService service, CategoriaService catService) {
         this.service = service;
+        this.catService = catService;
         this.productView = new ProductoView();
 
-        this.productView.setOnRegistroProducto(e -> registrar());
+        this.productView.setOnRegistroProducto(e -> accion());
         this.productView.setOnOpenNuevoProducto(e -> openVistaNuevo());
-        this.productView.setOnEditarProducto(e -> editar());
+        this.productView.setOnOpenEditarProducto(e -> openVistaEditar());
         this.productView.setOnEliminarProducto(e -> eliminar());
+        this.productView.setOnRegresarMenu(e -> regresar());
+        this.productView.setOnCloseNuevoProducto(e -> cerrarVistaNuevo());
     }
 
     public void mostrarVista() {
         productView.mostrar(service.listar());
     }
-
+    
     private void openVistaNuevo() {
-        List<Categoria> categorias = Sesion.getCategorias(); // obtenemos categorías en sesión
+        isEdit = false;
+        productView.limpiarDatos();
+        List<Categoria> categorias = catService.listar();
         productView.mostrarRegistroProducto(categorias);
+    }
+    
+    private void openVistaEditar() {
+        isEdit = true;
+        List<Categoria> categorias = catService.listar();
+        Producto p = service.obtenerPorId(productView.getIdProductoSeleccionado());
+        productView.mostrarEditarProducto(categorias, p);
+    }
+    
+    private void cerrarVistaNuevo() {
+        productView.cerrarVistaNuevoProducto();
+    }
+    
+    private void accion(){
+        if (isEdit) {
+            editar();
+        } else {
+            registrar();
+        }
+        productView.cerrarVistaNuevoProducto();
     }
 
     private void registrar() {
@@ -51,7 +78,7 @@ public class ProductoController {
         Producto actualizado = crearProductoDesdeFormulario();
         if (actualizado == null) return;
 
-        actualizado.setIdProducto(productView.getIdProducto()); // ID viene de formulario
+        actualizado.setIdProducto(productView.getIdProductoSeleccionado());
 
         boolean modificado = service.actualizar(actualizado);
         if (modificado) {
@@ -63,7 +90,7 @@ public class ProductoController {
     }
 
     private void eliminar() {
-        int id = productView.getIdProductoSeleccionado(); // de tabla o formulario
+        int id = productView.getIdProductoSeleccionado();
         if (id <= 0) {
             productView.mostrarError("Seleccione un producto válido para eliminar.");
             return;
@@ -77,8 +104,13 @@ public class ProductoController {
             productView.mostrarError("Error al eliminar el producto.");
         }
     }
+    
+    private void regresar() {
+        productView.cerrar();
+        MenuController menuController = new MenuController();
+        menuController.mostrarVista();
+    }
 
-    // Helper para leer el formulario
     private Producto crearProductoDesdeFormulario() {
         try {
             String sku = productView.getSku();

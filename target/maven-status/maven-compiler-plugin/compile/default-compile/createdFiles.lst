@@ -54,7 +54,6 @@ com\our\inventario\view\LoginView$1.class
 com\our\inventario\utils\algoritmos\arbolbinario\AbsNodo.class
 com\our\inventario\util\Either.class
 com\our\inventario\service\ProductoService.class
-com\our\inventario\view\CategoriaForm$5.class
 com\our\inventario\model\Stock.class
 com\our\inventario\utils\algoritmos\listaenlazada\AbsListaTemp.class
 com\our\inventario\controller\AlmacenController.class

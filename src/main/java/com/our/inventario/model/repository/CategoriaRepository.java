@@ -1,14 +1,12 @@
 package com.our.inventario.model.repository;
 
+import com.our.inventario.model.Categoria;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import com.our.inventario.model.Categoria;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,51 +18,76 @@ public class CategoriaRepository {
         this.conn = conn;
     }
 
-    public boolean save(Categoria c) {
-        String sql = "INSERT INTO Categoria(nombre, descripcion) VALUES(?,?)";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, c.getNombre());
-            ps.setString(2, c.getDescripcion());
-            int filas = ps.executeUpdate();
-            return filas > 0;
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoriaRepository.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-
-    public Optional<Categoria> findById(long id) {
-        String sql = "SELECT * FROM Categoria WHERE idCategoria = ?";
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setLong(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return Optional.of(map(rs));
-            }
-            return Optional.empty();
-        } catch (SQLException ex) {
-            Logger.getLogger(CategoriaRepository.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return Optional.empty();
-    }
-
-    public List<Categoria> findAll() {
-        List<Categoria> list = new ArrayList<>();
-        String sql = "SELECT * FROM categoria";
+    public List<Categoria> listar() {
+        List<Categoria> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Categoria";
         try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                list.add(map(rs));
+                lista.add(map(rs));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return list;
+        return lista;
+    }
+
+    public Categoria obtenerPorId(int id) {
+        String sql = "SELECT * FROM Categoria WHERE idCategoria = " + id;
+        try (Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            if (rs.next()) {
+                return map(rs);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public boolean insertar(Categoria categoria) {
+        String sql = String.format("""
+            INSERT INTO Categoria (nombre, descripcion)
+            VALUES ('%s', '%s')
+        """, categoria.getNombre(), categoria.getDescripcion());
+
+        try (Statement st = conn.createStatement()) {
+            return st.executeUpdate(sql) > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean actualizar(Categoria categoria) {
+        String sql = String.format("""
+            UPDATE Categoria
+            SET nombre = '%s',
+                descripcion = '%s'
+            WHERE idCategoria = %d
+        """, categoria.getNombre(), categoria.getDescripcion(), categoria.getId());
+
+        try (Statement st = conn.createStatement()) {
+            return st.executeUpdate(sql) > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean eliminar(int id) {
+        String sql = "DELETE FROM Categoria WHERE idCategoria = " + id;
+        try (Statement st = conn.createStatement()) {
+            return st.executeUpdate(sql) > 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaRepository.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
     private Categoria map(ResultSet rs) throws SQLException {
         return new Categoria(
-                rs.getLong("idCategoria"),
-                rs.getString("nombre"),
-                rs.getString("descripcion"));
+            rs.getInt("idCategoria"),
+            rs.getString("nombre"),
+            rs.getString("descripcion")
+        );
     }
 }

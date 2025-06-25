@@ -39,7 +39,7 @@ public class ProductoRepository {
                 rs.getString("nombreProducto"),
                 rs.getString("descripcionProducto"),
                 new Categoria(
-                        Long.valueOf(rs.getInt("idCategoria")),
+                        rs.getInt("idCategoria"),
                         rs.getString("nombreCategoria"),
                         rs.getString("descripcionCategoria")),
                 rs.getString("marca"),
@@ -67,7 +67,7 @@ public class ProductoRepository {
             producto.getSku(),
             producto.getNombre(),
             producto.getDescripcion(),
-            producto.getCategoria().getId().intValue(),
+            producto.getCategoria().getId(),
             producto.getMarca(),
             producto.getPrecioUnitario()
         );
@@ -95,7 +95,7 @@ public class ProductoRepository {
             producto.getSku(),
             producto.getNombre(),
             producto.getDescripcion(),
-            producto.getCategoria().getId().intValue(),
+            producto.getCategoria().getId(),
             producto.getMarca(),
             producto.getPrecioUnitario(),
             producto.getIdProducto()

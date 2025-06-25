@@ -4,21 +4,21 @@ import java.util.Objects;
 
 public class Categoria {
 
-    private Long id;
+    private int id;
     private String nombre;
     private String descripcion;
 
-    public Categoria(Long id, String nombre, String descripcion) {
+    public Categoria(int id, String nombre, String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
