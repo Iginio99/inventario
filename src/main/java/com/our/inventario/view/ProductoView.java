@@ -6,13 +6,13 @@ import java.awt.MouseInfo;
 import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ProductoView extends javax.swing.JFrame {
 
     private DefaultTableModel tblModelo = new DefaultTableModel();
     private DefaultComboBoxModel<Categoria> cbxModel = new DefaultComboBoxModel<>();
-    
 
     public ProductoView() {
         initComponents();
@@ -125,11 +125,6 @@ public class ProductoView extends javax.swing.JFrame {
         );
 
         popupEditarProd.setText("Editar");
-        popupEditarProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                popupEditarProdActionPerformed(evt);
-            }
-        });
         jPopupMenu1.add(popupEditarProd);
 
         popupEliminarProd.setText("Eliminar");
@@ -212,10 +207,6 @@ public class ProductoView extends javax.swing.JFrame {
         jPopupMenu1.show(this, nPosX, nPosY);
     }//GEN-LAST:event_tblProductosMouseClicked
 
-    private void popupEditarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popupEditarProdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_popupEditarProdActionPerformed
-
     private void initTable() {
         tblModelo.addColumn("ID");
         tblModelo.addColumn("Nombre");
@@ -262,6 +253,64 @@ public class ProductoView extends javax.swing.JFrame {
     public void setOnOpenNuevoProducto(ActionListener listener) {
         btnOpenNuevoProducto.addActionListener(listener);
     }
+
+    public void setOnEditarProducto(ActionListener r) {
+    }
+
+    public void setOnEliminarProducto(ActionListener r) {
+    }
+
+    public String getSku() {
+        return "SKU-" + java.time.LocalDate.now() + "-" + java.util.UUID.randomUUID().toString().substring(0, 6).toUpperCase();
+    }
+
+    public String getNombre() {
+        return txtNombreProducto.getText();
+    }
+
+    public String getDescripcion() {
+        return "";
+    }
+
+    public Categoria getCategoriaSeleccionada() {
+        return (Categoria) cbxCategorias.getSelectedItem();
+    }
+
+    public String getMarca() {
+        return "";
+    }
+
+    public double getPrecio() {
+        String texto = txtPrecioProducto.getText();
+        return Double.parseDouble(texto);
+    }
+
+    public int getIdProducto() {
+        return 0;
+    }
+
+    public int getIdProductoSeleccionado() {
+        return 0;
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(
+                this,
+                mensaje,
+                "Ok",
+                JOptionPane.OK_OPTION
+        );
+    }
+
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(
+                this,
+                mensaje,
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+        );
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCloseNuevoProducto;

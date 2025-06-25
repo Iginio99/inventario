@@ -5,7 +5,6 @@ import com.our.inventario.model.repository.UsuarioRepository;
 import com.our.inventario.service.UsuarioService;
 import com.our.inventario.util.DbConnection;
 import com.our.inventario.view.CategoriaForm;
-import java.sql.SQLException;
 
 public class Inventario {
 
