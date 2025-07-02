@@ -5,6 +5,11 @@ D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\controller\LoteCon
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\controller\MenuController.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\controller\ProductoController.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\controller\StockController.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\ArbolProducto.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\GlobalData.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\ListaCategoria.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\NodoCategoria.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\NodoProducto.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\Inventario.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Almacen.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Categoria.java

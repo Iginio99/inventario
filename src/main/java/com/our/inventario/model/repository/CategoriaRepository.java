@@ -2,6 +2,7 @@ package com.our.inventario.model.repository;
 
 import com.our.inventario.model.Categoria;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,18 +44,29 @@ public class CategoriaRepository {
         return null;
     }
 
-    public boolean insertar(Categoria categoria) {
-        String sql = String.format("""
+    public int insertar(Categoria categoria) {
+        String sql = """
             INSERT INTO Categoria (nombre, descripcion)
-            VALUES ('%s', '%s')
-        """, categoria.getNombre(), categoria.getDescripcion());
+            VALUES (?, ?)
+        """;
 
-        try (Statement st = conn.createStatement()) {
-            return st.executeUpdate(sql) > 0;
+        try (PreparedStatement st = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            st.setString(1, categoria.getNombre());
+            st.setString(2, categoria.getDescripcion());
+
+            int rows = st.executeUpdate();
+
+            if (rows > 0) {
+                try (ResultSet rs = st.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1);
+                    }
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(CategoriaRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return -1;
     }
 
     public boolean actualizar(Categoria categoria) {
@@ -85,9 +97,9 @@ public class CategoriaRepository {
 
     private Categoria map(ResultSet rs) throws SQLException {
         return new Categoria(
-            rs.getInt("idCategoria"),
-            rs.getString("nombre"),
-            rs.getString("descripcion")
+                rs.getInt("idCategoria"),
+                rs.getString("nombre"),
+                rs.getString("descripcion")
         );
     }
 }

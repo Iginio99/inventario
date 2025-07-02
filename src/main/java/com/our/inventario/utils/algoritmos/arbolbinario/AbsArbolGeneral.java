@@ -36,9 +36,9 @@ public abstract class AbsArbolGeneral<T, R extends AbsNodo<T, R>> {
         int cmp = getValueModel(model).compareToIgnoreCase(nodo.getValueModel());
 
         if (cmp < 0) {
-            nodo.setIzquierda(insertarRec(nodo.getIzquierda(), model));
+            nodo.setIzquierda(insertarSinDuplicadosRec(nodo.getIzquierda(), model));
         } else if (cmp > 0) {
-            nodo.setDerecha(insertarRec(nodo.getDerecha(), model));
+            nodo.setDerecha(insertarSinDuplicadosRec(nodo.getDerecha(), model));
         } else {
             // Ya existe un nodo con el mismo nombre
             System.out.println("Elemento duplicado no insertado: " + getValueModel(model));
@@ -128,6 +128,10 @@ public abstract class AbsArbolGeneral<T, R extends AbsNodo<T, R>> {
         return nodo;
     }
 
+    public R getRaiz() {
+        return raiz;
+    }
+    
     private R obtenerMinimo(R nodo) {
         while (nodo.getIzquierda() != null) {
             nodo = nodo.getIzquierda();

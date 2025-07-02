@@ -1,5 +1,10 @@
 package com.our.inventario.view;
 
+import com.our.inventario.data.ArbolProducto;
+import com.our.inventario.data.GlobalData;
+import com.our.inventario.data.ListaCategoria;
+import com.our.inventario.data.NodoCategoria;
+import com.our.inventario.data.NodoProducto;
 import com.our.inventario.model.Categoria;
 import com.our.inventario.model.Producto;
 import java.awt.event.ActionListener;
@@ -229,45 +234,65 @@ public class ProductoView extends javax.swing.JFrame {
         tblModelo.addColumn("Descripción");
         tblModelo.addColumn("Categoría");
     }
-    
-    public void limpiarDatos(){
-        
+
+    public void limpiarDatos() {
+
     }
 
-    private void actualizarTabla(List<Producto> productos) {
+    private int indice = 1;
+
+    private void actualizarTabla(ArbolProducto arbolProducto) {
         tblModelo.setRowCount(0);
-        for (Producto prod : productos) {
+        indice = 1;
+        recorrerYAgregar(arbolProducto);
+        tblProductos.setModel(tblModelo);
+    }
+
+    private void recorrerYAgregar(ArbolProducto arbolProducto) {
+        inOrdenAscTabla(arbolProducto.getRaiz());
+    }
+
+    private void inOrdenAscTabla(NodoProducto nodo) {
+        if (nodo != null) {
+            System.err.println(nodo.getValueModel());
+            inOrdenAscTabla(nodo.getIzquierda());
+
+            Producto prod = nodo.getModel();
             Object[] fila = new Object[]{
-                prod.getIdProducto(),
+                indice,
                 prod.getNombre(),
                 prod.getDescripcion(),
                 prod.getCategoria().getNombre()
             };
+            indice++;
             tblModelo.addRow(fila);
+
+            inOrdenAscTabla(nodo.getDerecha());
         }
-        tblProductos.setModel(tblModelo);
     }
 
-    private void setCategorias(List<Categoria> categorias) {
-        for (Categoria c : categorias) {
-            cbxModel.addElement(c);
+    public void mostrar(ArbolProducto arbolProducto) {
+        this.setVisible(true);
+        actualizarTabla(arbolProducto);
+    }
+
+    private void setCategorias(ListaCategoria categorias) {
+        NodoCategoria actual = categorias.getStart();
+        while (actual != null) {
+            cbxModel.addElement(actual.getModel());
+            actual = actual.getSiguiente();
         }
         cbxCategorias.setModel(cbxModel);
     }
 
-    public void mostrar(List<Producto> productos) {
-        this.setVisible(true);
-        actualizarTabla(productos);
-    }
-
-    public void mostrarRegistroProducto(List<Categoria> categorias) {
+    public void mostrarRegistroProducto(ListaCategoria categorias) {
         setCategorias(categorias);
         lblProducto.setText("Nuevo producto");
         btnRegistrarNuevoProducto.setText("Registar");
         nuevoProductoDialog.setVisible(true);
     }
-    
-    public void mostrarEditarProducto(List<Categoria> categorias, Producto producto) {
+
+    public void mostrarEditarProducto(ListaCategoria categorias, Producto producto) {
         setCategorias(categorias);
         lblProducto.setText("Editar producto");
         btnRegistrarNuevoProducto.setText("Editar");
@@ -290,7 +315,7 @@ public class ProductoView extends javax.swing.JFrame {
     public void setOnOpenNuevoProducto(ActionListener listener) {
         btnOpenNuevoProducto.addActionListener(listener);
     }
-    
+
     public void setOnOpenEditarProducto(ActionListener listener) {
         popupEditarProd.addActionListener(listener);
     }

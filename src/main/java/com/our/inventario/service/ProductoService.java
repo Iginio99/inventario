@@ -1,5 +1,7 @@
 package com.our.inventario.service;
 
+import com.our.inventario.data.ArbolProducto;
+import com.our.inventario.data.GlobalData;
 import com.our.inventario.model.Producto;
 import com.our.inventario.model.repository.ProductoRepository;
 import java.util.List;
@@ -12,8 +14,12 @@ public class ProductoService {
         this.repo = repo;
     }
 
-    public List<Producto> listar() {
-        return repo.listar();
+    public void listar() {
+        List<Producto> productos = repo.listar();
+        GlobalData.arbolProducto = new ArbolProducto();
+        for (Producto p : productos) {
+            GlobalData.arbolProducto.insertarSinDuplicados(p);
+        }
     }
 
     public Producto obtenerPorId(int id) {
@@ -21,7 +27,11 @@ public class ProductoService {
     }
 
     public boolean insertar(Producto producto) {
-        return repo.insertar(producto);
+        int id = repo.insertar(producto);
+        if (id > 0) {
+            GlobalData.arbolProducto.insertarSinDuplicados(producto);
+        }
+        return id > 0;
     }
 
     public boolean actualizar(Producto producto) {

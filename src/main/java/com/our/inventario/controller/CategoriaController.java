@@ -1,5 +1,6 @@
 package com.our.inventario.controller;
 
+import com.our.inventario.data.GlobalData;
 import com.our.inventario.model.Categoria;
 import com.our.inventario.service.CategoriaService;
 import com.our.inventario.view.CategoriaForm;
@@ -23,7 +24,12 @@ public class CategoriaController {
     }
 
     public void mostrarVista() {
-        view.mostrar(service.listar());
+        service.listar();
+        view.mostrar(GlobalData.listaCategoria);
+    }
+    
+    public void actualizarVista(){
+        view.mostrar(GlobalData.listaCategoria);
     }
 
     private void openVistaNuevo() {
@@ -57,7 +63,7 @@ public class CategoriaController {
         boolean creado = service.insertar(nueva);
         if (creado) {
             view.mostrarMensaje("Categoría registrada correctamente.");
-            mostrarVista();
+            actualizarVista();
         } else {
             view.mostrarError("Error al registrar la categoría.");
         }
@@ -80,15 +86,16 @@ public class CategoriaController {
 
     private void eliminar() {
         int id = view.getIdCategoriaSeleccionada();
-        if (id <= 0) {
+        String name = view.getNameCategoriaSeleccionada();
+        if (id <= 0 || name ==  null) {
             view.mostrarError("Seleccione una categoría válida para eliminar.");
             return;
         }
 
-        boolean eliminado = service.eliminar(id);
+        boolean eliminado = service.eliminar(name, id);
         if (eliminado) {
             view.mostrarMensaje("Categoría eliminada correctamente.");
-            mostrarVista();
+            actualizarVista();
         } else {
             view.mostrarError("Error al eliminar la categoría.");
         }

@@ -3,6 +3,7 @@ package com.our.inventario.model.repository;
 import com.our.inventario.model.Categoria;
 import com.our.inventario.model.Producto;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -59,28 +60,35 @@ public class ProductoRepository {
         return null;
     }
 
-    public boolean insertar(Producto producto) {
-        String sql = String.format("""
+    public int insertar(Producto producto) {
+        String sql = """
             INSERT INTO Producto (sku, nombre, descripcion, idCategoria, marca, precioUnitario, fechaRegistro)
-            VALUES ('%s', '%s', '%s', %d, '%s', %f, NOW())
-        """, 
-            producto.getSku(),
-            producto.getNombre(),
-            producto.getDescripcion(),
-            producto.getCategoria().getId(),
-            producto.getMarca(),
-            producto.getPrecioUnitario()
-        );
+            VALUES (?, ?, ?, ?, ?, ?, NOW())
+        """;
 
-        try (Statement st = conn.createStatement()) {
-            return st.executeUpdate(sql) > 0;
+        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, producto.getSku());
+            ps.setString(2, producto.getNombre());
+            ps.setString(3, producto.getDescripcion());
+            ps.setInt(4, producto.getCategoria().getId());
+            ps.setString(5, producto.getMarca());
+            ps.setDouble(6, producto.getPrecioUnitario());
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        return rs.getInt(1); // Devuelve el ID generado
+                    }
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ProductoRepository.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return false;
+        return -1;
     }
 
-    
     public boolean actualizar(Producto producto) {
         String sql = String.format("""
             UPDATE Producto
@@ -91,14 +99,14 @@ public class ProductoRepository {
                 marca = '%s',
                 precioUnitario = %f
             WHERE idProducto = %d
-        """, 
-            producto.getSku(),
-            producto.getNombre(),
-            producto.getDescripcion(),
-            producto.getCategoria().getId(),
-            producto.getMarca(),
-            producto.getPrecioUnitario(),
-            producto.getIdProducto()
+        """,
+                producto.getSku(),
+                producto.getNombre(),
+                producto.getDescripcion(),
+                producto.getCategoria().getId(),
+                producto.getMarca(),
+                producto.getPrecioUnitario(),
+                producto.getIdProducto()
         );
 
         try (Statement st = conn.createStatement()) {

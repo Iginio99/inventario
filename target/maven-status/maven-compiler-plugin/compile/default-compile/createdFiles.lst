@@ -11,8 +11,10 @@ com\our\inventario\view\ProductoView$2.class
 com\our\inventario\model\Almacen.class
 com\our\inventario\view\CategoriaForm$4.class
 com\our\inventario\utils\algoritmos\algcategoria\ArbolCategoria.class
+com\our\inventario\data\GlobalData.class
 com\our\inventario\view\CategoriaForm.class
 com\our\inventario\view\StockForm$1.class
+com\our\inventario\data\NodoProducto.class
 com\our\inventario\view\LoteView$3.class
 com\our\inventario\view\MenuView.class
 com\our\inventario\utils\algoritmos\algcategoria\ListaTempCategoria.class
@@ -25,6 +27,7 @@ com\our\inventario\view\LoginView.class
 com\our\inventario\utils\algoritmos\algcategoria\NodoPilaCategoria.class
 com\our\inventario\view\AlmacenForm$1.class
 com\our\inventario\util\Sesion.class
+com\our\inventario\data\ListaCategoria.class
 com\our\inventario\model\Categoria.class
 com\our\inventario\model\Producto.class
 com\our\inventario\utils\algoritmos\algcategoria\OperacionCategoria.class
@@ -34,7 +37,9 @@ com\our\inventario\view\StockForm$2.class
 com\our\inventario\model\Lote.class
 com\our\inventario\model\repository\ProductoRepository.class
 com\our\inventario\view\MenuView$1.class
+com\our\inventario\data\ArbolProducto.class
 com\our\inventario\utils\algoritmos\listaenlazada\AbsNodoTemp.class
+com\our\inventario\data\NodoCategoria.class
 com\our\inventario\model\Usuario.class
 com\our\inventario\controller\CategoriaController.class
 com\our\inventario\view\LoteView$1.class

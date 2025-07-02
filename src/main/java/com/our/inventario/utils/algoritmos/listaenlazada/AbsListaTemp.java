@@ -18,26 +18,32 @@ public abstract class AbsListaTemp<T, R extends AbsNodoTemp> {
 
     public void agregar(T model) {
         R nuevo = getNuevoNodo(model);
-        nuevo.setSiguiente(puntero);
-        puntero = nuevo;
-
+        nuevo.setSiguiente(null);
+        if (start == null) {
+            puntero = nuevo;
+            start = puntero;
+        } else {
+            puntero.setSiguiente(nuevo);
+            puntero = nuevo;
+        }
     }
 
     public boolean eliminar(String nombre) {
-        R actual = puntero;
+        R actual = start;
         R anterior = null;
 
         while (actual != null) {
             if (actual.getValueModel().equalsIgnoreCase(nombre)) {
                 if (anterior == null) {
-                    puntero = (R) actual.getSiguiente();
+                    start = (R) actual.getSiguiente();
                 } else {
                     anterior.setSiguiente(actual.getSiguiente());
                 }
                 return true;
+            } else {
+                anterior = actual;
+                actual = (R) actual.getSiguiente();
             }
-            anterior = actual;
-            actual = (R) actual.getSiguiente();
         }
         return false;
     }
@@ -51,7 +57,6 @@ public abstract class AbsListaTemp<T, R extends AbsNodoTemp> {
         }
     }
 
-    // 4. Confirmar todos los productos válidos (insertar al ABB)
     public void confirmar(AbsArbolGeneral arbol) {
         R actual = puntero;
         while (actual != null) {
@@ -59,6 +64,10 @@ public abstract class AbsListaTemp<T, R extends AbsNodoTemp> {
             actual = (R) actual.getSiguiente();
         }
         puntero = null;
+    }
+
+    public R getStart() {
+        return start;
     }
 
     public boolean estaVacia() {

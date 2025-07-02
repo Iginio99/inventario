@@ -1,12 +1,12 @@
 package com.our.inventario.controller;
 
+import com.our.inventario.data.GlobalData;
 import com.our.inventario.model.Categoria;
 import com.our.inventario.model.Producto;
 import com.our.inventario.service.CategoriaService;
 import com.our.inventario.service.ProductoService;
 import com.our.inventario.view.ProductoView;
 import java.time.LocalDate;
-import java.util.List;
 
 public class ProductoController {
 
@@ -29,28 +29,33 @@ public class ProductoController {
     }
 
     public void mostrarVista() {
-        productView.mostrar(service.listar());
+        service.listar();
+        productView.mostrar(GlobalData.arbolProducto);
     }
-    
+
+    public void actualizarVista() {
+        productView.mostrar(GlobalData.arbolProducto);
+    }
+
     private void openVistaNuevo() {
         isEdit = false;
         productView.limpiarDatos();
-        List<Categoria> categorias = catService.listar();
-        productView.mostrarRegistroProducto(categorias);
+        catService.listar();
+        productView.mostrarRegistroProducto(GlobalData.listaCategoria);
     }
-    
+
     private void openVistaEditar() {
         isEdit = true;
-        List<Categoria> categorias = catService.listar();
+        /*List<Categoria> categorias = catService.listar();
         Producto p = service.obtenerPorId(productView.getIdProductoSeleccionado());
-        productView.mostrarEditarProducto(categorias, p);
+        productView.mostrarEditarProducto(categorias, p);*/
     }
-    
+
     private void cerrarVistaNuevo() {
         productView.cerrarVistaNuevoProducto();
     }
-    
-    private void accion(){
+
+    private void accion() {
         if (isEdit) {
             editar();
         } else {
@@ -61,14 +66,16 @@ public class ProductoController {
 
     private void registrar() {
         Producto nuevo = crearProductoDesdeFormulario();
-        if (nuevo == null) return;
+        if (nuevo == null) {
+            return;
+        }
 
         nuevo.setFechaRegistro(LocalDate.now());
 
         boolean creado = service.insertar(nuevo);
         if (creado) {
             productView.mostrarMensaje("Producto registrado correctamente.");
-            mostrarVista();
+            actualizarVista();
         } else {
             productView.mostrarError("Error al registrar el producto.");
         }
@@ -76,7 +83,9 @@ public class ProductoController {
 
     private void editar() {
         Producto actualizado = crearProductoDesdeFormulario();
-        if (actualizado == null) return;
+        if (actualizado == null) {
+            return;
+        }
 
         actualizado.setIdProducto(productView.getIdProductoSeleccionado());
 
@@ -104,7 +113,7 @@ public class ProductoController {
             productView.mostrarError("Error al eliminar el producto.");
         }
     }
-    
+
     private void regresar() {
         productView.cerrar();
         MenuController menuController = new MenuController();

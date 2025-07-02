@@ -1,9 +1,10 @@
 package com.our.inventario.view;
 
+import com.our.inventario.data.ListaCategoria;
+import com.our.inventario.data.NodoCategoria;
 import com.our.inventario.model.Categoria;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
@@ -11,6 +12,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class CategoriaForm extends javax.swing.JFrame {
+
     private DefaultTableModel tblModelo = new DefaultTableModel();
 
     public CategoriaForm() {
@@ -50,16 +52,28 @@ public class CategoriaForm extends javax.swing.JFrame {
         tblModelo.addColumn("Descripción");
     }
 
-    private void actualizarTabla(List<Categoria> categoria) {
+    private void actualizarTabla(ListaCategoria lista) {
         tblModelo.setRowCount(0);
-        for (Categoria cat : categoria) {
+        NodoCategoria actual = lista.getStart();
+        while (actual != null) {
+            Categoria cat = actual.getModel();
+
             Object[] fila = new Object[]{
                 cat.getId(),
                 cat.getNombre(),
                 cat.getDescripcion()
             };
             tblModelo.addRow(fila);
+
+            if (actual.getSiguiente() != null) {
+                System.err.println(actual.getValueModel() + " -> " + actual.getSiguiente().getValueModel());
+            } else {
+                System.err.println(actual.getValueModel() + " -> null");
+            }
+
+            actual = actual.getSiguiente();
         }
+
         tblCategorias.setModel(tblModelo);
     }
 
@@ -67,10 +81,10 @@ public class CategoriaForm extends javax.swing.JFrame {
         txtNombreCategoria.setText("");
         txtDescripcionCategoria.setText("");
     }
-    
-    public void mostrar(List<Categoria> categoria) {
+
+    public void mostrar(ListaCategoria lista) {
         this.setVisible(true);
-        actualizarTabla(categoria);
+        actualizarTabla(lista);
     }
 
     public void setOnRegistroCategoria(ActionListener listener) {
@@ -80,19 +94,19 @@ public class CategoriaForm extends javax.swing.JFrame {
     public void setOnOpenNuevoCategoria(ActionListener listener) {
         btnNuevaCategoria.addActionListener(listener);
     }
-    
+
     public void setOnOpenEditarCategoria(ActionListener listener) {
         popupEditarCat.addActionListener(listener);
     }
-    
+
     public void setOnEliminarCategoria(ActionListener listener) {
         popupEliminarCat.addActionListener(listener);
     }
-    
+
     public void setOnRegresarMenu(ActionListener listener) {
         btnRegresar.addActionListener(listener);
     }
-    
+
     public void setOnCloseNuevoCategoria(ActionListener listener) {
         btnCancelar.addActionListener(listener);
     }
@@ -323,14 +337,25 @@ public class CategoriaForm extends javax.swing.JFrame {
         return id;
     }
     
-    public void mostrarEditarCategoria(Categoria categoria){
+    public String getNameCategoriaSeleccionada() {
+        int filaSeleccionada = tblCategorias.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            return null;
+        }
+
+        Object valor = tblModelo.getValueAt(filaSeleccionada, 1);
+        String name = valor.toString();
+        return name;
+    }
+
+    public void mostrarEditarCategoria(Categoria categoria) {
         lblCategoria.setText("Editar categoría");
         txtNombreCategoria.setText(categoria.getNombre());
         txtDescripcionCategoria.setText(categoria.getDescripcion());
         btnRegistrarCategoria.setText("Editar");
         nuevaCategoriaDialog.setVisible(true);
     }
-    
+
     public void mostrarRegistroCategoria() {
         lblCategoria.setText("Nueva categoría");
         btnRegistrarCategoria.setText("Registrar");
