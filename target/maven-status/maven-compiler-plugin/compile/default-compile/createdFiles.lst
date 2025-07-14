@@ -5,9 +5,11 @@ com\our\inventario\model\repository\UsuarioRepository.class
 com\our\inventario\util\Servicios.class
 com\our\inventario\view\CategoriaForm$1.class
 com\our\inventario\util\DbConnection.class
+com\our\inventario\model\repository\AlmacenRepository.class
 com\our\inventario\view\ProductoView.class
 com\our\inventario\controller\StockController.class
 com\our\inventario\view\ProductoView$2.class
+com\our\inventario\data\NodoAlmacen.class
 com\our\inventario\model\Almacen.class
 com\our\inventario\view\CategoriaForm$4.class
 com\our\inventario\utils\algoritmos\algcategoria\ArbolCategoria.class
@@ -47,6 +49,7 @@ com\our\inventario\utils\algoritmos\pilas\TipoOperacion.class
 com\our\inventario\view\ProductoView$1.class
 com\our\inventario\utils\algoritmos\pilas\AbsOperacion.class
 com\our\inventario\controller\MenuController.class
+com\our\inventario\service\AlmacenService.class
 com\our\inventario\controller\ProductoController.class
 com\our\inventario\utils\algoritmos\algcategoria\NodoCategoria.class
 com\our\inventario\service\CategoriaService.class
@@ -58,6 +61,7 @@ com\our\inventario\view\CategoriaForm$2.class
 com\our\inventario\view\LoginView$1.class
 com\our\inventario\utils\algoritmos\arbolbinario\AbsNodo.class
 com\our\inventario\util\Either.class
+com\our\inventario\data\ListaAlmacen.class
 com\our\inventario\service\ProductoService.class
 com\our\inventario\model\Stock.class
 com\our\inventario\utils\algoritmos\listaenlazada\AbsListaTemp.class

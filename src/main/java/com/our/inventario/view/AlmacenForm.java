@@ -1,11 +1,13 @@
 package com.our.inventario.view;
 
+import com.our.inventario.data.ListaAlmacen;
+import com.our.inventario.data.NodoAlmacen;
+import com.our.inventario.model.Almacen;
 import com.our.inventario.model.Categoria;
-import com.our.inventario.model.Producto;
 import java.awt.MouseInfo;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AlmacenForm extends javax.swing.JFrame {
@@ -24,7 +26,7 @@ public class AlmacenForm extends javax.swing.JFrame {
     private void initComponents() {
 
         nuevoAlmacenDialog = new javax.swing.JDialog();
-        jLabel2 = new javax.swing.JLabel();
+        lblAlmacen = new javax.swing.JLabel();
         txtNombreAlmacen = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnRegistrarNuevoAlmacen = new javax.swing.JButton();
@@ -38,10 +40,11 @@ public class AlmacenForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlmacenes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnRegresar = new javax.swing.JButton();
 
         nuevoAlmacenDialog.setMinimumSize(new java.awt.Dimension(324, 361));
 
-        jLabel2.setText("Nuevo Almacen");
+        lblAlmacen.setText("Nuevo Almacen");
 
         jLabel3.setText("Nombre");
 
@@ -62,7 +65,7 @@ public class AlmacenForm extends javax.swing.JFrame {
                         .addComponent(btnRegistrarNuevoAlmacen))
                     .addGroup(nuevoAlmacenDialogLayout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(jLabel2)
+                        .addComponent(lblAlmacen)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(nuevoAlmacenDialogLayout.createSequentialGroup()
                         .addGap(32, 32, 32)
@@ -75,7 +78,7 @@ public class AlmacenForm extends javax.swing.JFrame {
             nuevoAlmacenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nuevoAlmacenDialogLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(jLabel2)
+                .addComponent(lblAlmacen)
                 .addGap(18, 18, 18)
                 .addGroup(nuevoAlmacenDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNombreAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -142,6 +145,8 @@ public class AlmacenForm extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(0, 137, 206));
         jLabel1.setText("Gestión de Almacenes");
 
+        btnRegresar.setText("Regresar");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,25 +154,24 @@ public class AlmacenForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 725, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnOpenNuevoAlmacen)
-                        .addGap(14, 14, 14))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnOpenNuevoAlmacen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnOpenNuevoAlmacen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRegresar))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -188,53 +192,112 @@ public class AlmacenForm extends javax.swing.JFrame {
     private void initTable() {
         tblModelo.addColumn("ID");
         tblModelo.addColumn("Nombre");
-        tblModelo.addColumn("Descripción");
-        tblModelo.addColumn("Categoría");
+        tblAlmacenes.setModel(tblModelo);
     }
 
-    private void actualizarTabla(List<Producto> productos) {
+    private void actualizarTabla(ListaAlmacen lista) {
         tblModelo.setRowCount(0);
-        for (Producto prod : productos) {
+        NodoAlmacen actual = lista.getStart();
+        while (actual != null) {
+            Almacen alm = actual.getModel();
             Object[] fila = new Object[]{
-                prod.getIdProducto(),
-                prod.getNombre(),
-                prod.getDescripcion(),
-                prod.getCategoria().getNombre()
+                alm.getIdAlmacen(),
+                alm.getNombre()
             };
             tblModelo.addRow(fila);
+            actual = actual.getSiguiente();
         }
         tblAlmacenes.setModel(tblModelo);
     }
 
-    
-
-    public void mostrar(List<Producto> productos) {
+    public void mostrar(ListaAlmacen lista) {
         this.setVisible(true);
-        actualizarTabla(productos);
+        actualizarTabla(lista);
     }
 
-    public void mostrarRegistroProducto() {
-        System.out.println("se abrio");
+    public void mostrarRegistroAlmacen() {
+        lblAlmacen.setText("Nuevo almacén");
+        btnRegistrarNuevoAlmacen.setText("Registrar");
         nuevoAlmacenDialog.setVisible(true);
     }
 
-    public void setOnRegistroProducto(ActionListener listener) {
+    public void mostrarEditarAlmacen(Almacen almacen) {
+        lblAlmacen.setText("Editar almacén");
+        txtNombreAlmacen.setText(almacen.getNombre());
+        btnRegistrarNuevoAlmacen.setText("Editar");
+        nuevoAlmacenDialog.setVisible(true);
+    }
+
+    public void cerrarVistaNuevoAlmacen() {
+        nuevoAlmacenDialog.setVisible(false);
+    }
+
+    public void limpiarDatosRegistro() {
+        txtNombreAlmacen.setText("");
+    }
+
+    public void mostrarMensaje(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "OK", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public int getIdAlmacenSeleccionado() {
+        int fila = tblAlmacenes.getSelectedRow();
+        if (fila == -1) return -1;
+        return Integer.parseInt(tblModelo.getValueAt(fila, 0).toString());
+    }
+
+    public String getNameAlmacenSeleccionado() {
+        int fila = tblAlmacenes.getSelectedRow();
+        if (fila == -1) return null;
+        return tblModelo.getValueAt(fila, 1).toString();
+    }
+
+    public String getNombre() {
+        return txtNombreAlmacen.getText();
+    }
+
+    public void cerrar() {
+        this.dispose();
+    }
+
+    public void setOnRegistroAlmacen(ActionListener listener) {
         btnRegistrarNuevoAlmacen.addActionListener(listener);
     }
 
-    public void setOnOpenNuevoProducto(ActionListener listener) {
+    public void setOnOpenNuevoAlmacen(ActionListener listener) {
         btnOpenNuevoAlmacen.addActionListener(listener);
+    }
+
+    public void setOnOpenEditarAlmacen(ActionListener listener) {
+        popupEditarAlmacen.addActionListener(listener);
+    }
+
+    public void setOnEliminarAlmacen(ActionListener listener) {
+        popupEliminarAlmacen.addActionListener(listener);
+    }
+
+    public void setOnRegresarMenu(ActionListener listener) {
+        btnRegresar.addActionListener(listener);
+    }
+
+    public void setOnCloseNuevoAlmacen(ActionListener listener) {
+        btnCloseNuevoAlmacen.addActionListener(listener);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCloseNuevoAlmacen;
     private javax.swing.JButton btnOpenNuevoAlmacen;
     private javax.swing.JButton btnRegistrarNuevoAlmacen;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAlmacen;
     private javax.swing.JDialog nuevoAlmacenDialog;
     private javax.swing.JMenuItem popupAgregarLote;
     private javax.swing.JMenuItem popupAgregarStock;

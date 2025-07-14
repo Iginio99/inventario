@@ -12,7 +12,7 @@ public class MenuController {
         this.menuView = new MenuView();
         this.menuView.setOnOpenProductos(e -> abrirGestionProductos());
         this.menuView.setOnOpenCategorias(e-> abrirGestionCategorias());
-        this.menuView.setOnOpenCategorias(e-> abrirGestionAlmacenes());        
+        this.menuView.setOnOpenAlmacen(e-> abrirGestionAlmacenes());        
         this.menuView.setOnOpenCategorias(e-> abrirGestionStock());
 
     }
@@ -30,7 +30,7 @@ public class MenuController {
     }
     
     private void abrirGestionAlmacenes(){
-        var controller = new AlmacenController(/*Servicios.getCategoriaService()*/);
+        var controller = new AlmacenController(Servicios.getAlmacenService());
         menuView.cerrar();
         controller.mostrarVista();
     }

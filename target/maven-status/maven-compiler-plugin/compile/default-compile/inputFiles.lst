@@ -7,7 +7,9 @@ D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\controller\Product
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\controller\StockController.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\ArbolProducto.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\GlobalData.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\ListaAlmacen.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\ListaCategoria.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\NodoAlmacen.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\NodoCategoria.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\NodoProducto.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\Inventario.java
@@ -15,12 +17,14 @@ D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Almacen.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Categoria.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Lote.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Producto.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\AlmacenRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\CategoriaRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\ProductoRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\UsuarioRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Rol.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Stock.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Usuario.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\AlmacenService.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\CategoriaService.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\ProductoService.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\UsuarioService.java
