@@ -9,6 +9,7 @@ com\our\inventario\model\repository\AlmacenRepository.class
 com\our\inventario\view\ProductoView.class
 com\our\inventario\controller\StockController.class
 com\our\inventario\view\ProductoView$2.class
+com\our\inventario\view\MovimientosForm.class
 com\our\inventario\data\NodoAlmacen.class
 com\our\inventario\model\Almacen.class
 com\our\inventario\view\CategoriaForm$4.class
@@ -25,6 +26,7 @@ com\our\inventario\utils\algoritmos\pilas\AbsNodoPila.class
 com\our\inventario\view\LoteView.class
 com\our\inventario\controller\LoginController.class
 com\our\inventario\view\LoteView$2.class
+com\our\inventario\model\repository\LoteRepository.class
 com\our\inventario\view\LoginView.class
 com\our\inventario\utils\algoritmos\algcategoria\NodoPilaCategoria.class
 com\our\inventario\view\AlmacenForm$1.class
@@ -52,6 +54,7 @@ com\our\inventario\controller\MenuController.class
 com\our\inventario\service\AlmacenService.class
 com\our\inventario\controller\ProductoController.class
 com\our\inventario\utils\algoritmos\algcategoria\NodoCategoria.class
+com\our\inventario\view\MovimientosForm$1.class
 com\our\inventario\service\CategoriaService.class
 com\our\inventario\view\AlmacenForm$3.class
 com\our\inventario\utils\algoritmos\arbolbinario\AbsArbolGeneral.class
@@ -68,5 +71,9 @@ com\our\inventario\utils\algoritmos\listaenlazada\AbsListaTemp.class
 com\our\inventario\controller\AlmacenController.class
 com\our\inventario\utils\algoritmos\algcategoria\PilaCategoria.class
 com\our\inventario\view\AlmacenForm$2.class
+com\our\inventario\data\ListaLote.class
 com\our\inventario\view\AlmacenForm.class
+com\our\inventario\controller\MovimientoController.class
+com\our\inventario\service\LoteService.class
+com\our\inventario\data\NodoLote.class
 com\our\inventario\view\StockForm.class

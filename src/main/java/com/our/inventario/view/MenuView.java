@@ -18,7 +18,7 @@ public class MenuView extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnProducto = new javax.swing.JButton();
         btnCategorias = new javax.swing.JButton();
-        btnStocks = new javax.swing.JButton();
+        btnMovimientos = new javax.swing.JButton();
         btnAlmacen3 = new javax.swing.JButton();
         btnAlmacenes = new javax.swing.JButton();
 
@@ -57,7 +57,7 @@ public class MenuView extends javax.swing.JFrame {
 
         btnCategorias.setText("Gestión de Categorías");
 
-        btnStocks.setText("Gestión de Stock");
+        btnMovimientos.setText("Gestión de Movimientos");
 
         btnAlmacen3.setText("Cerrar Sesión");
 
@@ -71,8 +71,8 @@ public class MenuView extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnProducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
-                    .addComponent(btnStocks, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnMovimientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAlmacen3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAlmacenes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -85,7 +85,7 @@ public class MenuView extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(btnCategorias)
                 .addGap(33, 33, 33)
-                .addComponent(btnStocks)
+                .addComponent(btnMovimientos)
                 .addGap(38, 38, 38)
                 .addComponent(btnAlmacenes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -137,8 +137,8 @@ public class MenuView extends javax.swing.JFrame {
         btnCategorias.addActionListener(listener);
     }
     
-    public void setOnOpenStock(ActionListener listener){
-        btnStocks.addActionListener(listener);
+    public void setOnOpenMovmimientos(ActionListener listener){
+        btnMovimientos.addActionListener(listener);
     }
     
     public void setOnOpenAlmacen(ActionListener listener){
@@ -157,8 +157,8 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JButton btnAlmacen3;
     private javax.swing.JButton btnAlmacenes;
     private javax.swing.JButton btnCategorias;
+    private javax.swing.JButton btnMovimientos;
     private javax.swing.JButton btnProducto;
-    private javax.swing.JButton btnStocks;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

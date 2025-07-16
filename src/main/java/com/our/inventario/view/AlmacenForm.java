@@ -5,9 +5,13 @@ import com.our.inventario.data.NodoAlmacen;
 import com.our.inventario.model.Almacen;
 import com.our.inventario.model.Categoria;
 import java.awt.MouseInfo;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class AlmacenForm extends javax.swing.JFrame {
@@ -36,6 +40,12 @@ public class AlmacenForm extends javax.swing.JFrame {
         popupEliminarAlmacen = new javax.swing.JMenuItem();
         popupAgregarLote = new javax.swing.JMenuItem();
         popupAgregarStock = new javax.swing.JMenuItem();
+        nuevoLoteDialog = new javax.swing.JDialog();
+        jLabel2 = new javax.swing.JLabel();
+        lblNombreAlmacen = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblLotes = new javax.swing.JTable();
+        btnOpenNuevoLote = new javax.swing.JButton();
         btnOpenNuevoAlmacen = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlmacenes = new javax.swing.JTable();
@@ -101,11 +111,68 @@ public class AlmacenForm extends javax.swing.JFrame {
         popupEliminarAlmacen.setText("Eliminar");
         jPopupMenu1.add(popupEliminarAlmacen);
 
-        popupAgregarLote.setText("jMenuItem1");
+        popupAgregarLote.setText("Agregar lote");
         jPopupMenu1.add(popupAgregarLote);
 
-        popupAgregarStock.setText("jMenuItem1");
+        popupAgregarStock.setText("Agregar stock");
         jPopupMenu1.add(popupAgregarStock);
+
+        jLabel2.setText("LOTES");
+
+        tblLotes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Id", "Lote"
+            }
+        ));
+        jScrollPane2.setViewportView(tblLotes);
+        if (tblLotes.getColumnModel().getColumnCount() > 0) {
+            tblLotes.getColumnModel().getColumn(0).setMinWidth(100);
+            tblLotes.getColumnModel().getColumn(0).setPreferredWidth(100);
+            tblLotes.getColumnModel().getColumn(0).setMaxWidth(100);
+        }
+
+        btnOpenNuevoLote.setText("Nuevo Lote");
+
+        javax.swing.GroupLayout nuevoLoteDialogLayout = new javax.swing.GroupLayout(nuevoLoteDialog.getContentPane());
+        nuevoLoteDialog.getContentPane().setLayout(nuevoLoteDialogLayout);
+        nuevoLoteDialogLayout.setHorizontalGroup(
+            nuevoLoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nuevoLoteDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(nuevoLoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(nuevoLoteDialogLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(nuevoLoteDialogLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblNombreAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nuevoLoteDialogLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnOpenNuevoLote)))
+                .addContainerGap())
+        );
+        nuevoLoteDialogLayout.setVerticalGroup(
+            nuevoLoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nuevoLoteDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(nuevoLoteDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombreAlmacen, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(nuevoLoteDialogLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel2)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnOpenNuevoLote)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -180,9 +247,11 @@ public class AlmacenForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblAlmacenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlmacenesMouseClicked
-        int nPosX = MouseInfo.getPointerInfo().getLocation().x;
-        int nPosY = MouseInfo.getPointerInfo().getLocation().y;
-        jPopupMenu1.show(this, nPosX, nPosY);
+        if (SwingUtilities.isRightMouseButton(evt)) {
+            int nPosX = evt.getX();
+            int nPosY = evt.getY();
+            jPopupMenu1.show(evt.getComponent(), nPosX, nPosY);
+        }
     }//GEN-LAST:event_tblAlmacenesMouseClicked
 
     private void popupEditarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popupEditarAlmacenActionPerformed
@@ -226,6 +295,11 @@ public class AlmacenForm extends javax.swing.JFrame {
         txtNombreAlmacen.setText(almacen.getNombre());
         btnRegistrarNuevoAlmacen.setText("Editar");
         nuevoAlmacenDialog.setVisible(true);
+    }
+    
+    public void mostrarLotes(Almacen almacen) {
+        lblNombreAlmacen.setText(almacen.getNombre());
+        nuevoLoteDialog.setVisible(true);
     }
 
     public void cerrarVistaNuevoAlmacen() {
@@ -279,6 +353,14 @@ public class AlmacenForm extends javax.swing.JFrame {
     public void setOnEliminarAlmacen(ActionListener listener) {
         popupEliminarAlmacen.addActionListener(listener);
     }
+    
+    public void setOnAddLote(ActionListener listener) {
+        popupAgregarLote.addActionListener(listener);
+    }
+     
+    public void setOnAddStock(ActionListener listener) {
+        popupAgregarStock.addActionListener(listener);
+    }
 
     public void setOnRegresarMenu(ActionListener listener) {
         btnRegresar.addActionListener(listener);
@@ -291,19 +373,25 @@ public class AlmacenForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCloseNuevoAlmacen;
     private javax.swing.JButton btnOpenNuevoAlmacen;
+    private javax.swing.JButton btnOpenNuevoLote;
     private javax.swing.JButton btnRegistrarNuevoAlmacen;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAlmacen;
+    private javax.swing.JLabel lblNombreAlmacen;
     private javax.swing.JDialog nuevoAlmacenDialog;
+    private javax.swing.JDialog nuevoLoteDialog;
     private javax.swing.JMenuItem popupAgregarLote;
     private javax.swing.JMenuItem popupAgregarStock;
     private javax.swing.JMenuItem popupEditarAlmacen;
     private javax.swing.JMenuItem popupEliminarAlmacen;
     private javax.swing.JTable tblAlmacenes;
+    private javax.swing.JTable tblLotes;
     private javax.swing.JTextField txtNombreAlmacen;
     // End of variables declaration//GEN-END:variables
 }

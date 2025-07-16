@@ -18,6 +18,8 @@ public class AlmacenController {
         view.setOnRegistroAlmacen(e -> accion());
         view.setOnOpenNuevoAlmacen(e -> openVistaNuevo());
         view.setOnOpenEditarAlmacen(e -> openVistaEditar());
+        view.setOnAddLote(e -> openVistaLote());
+        view.setOnAddStock(e -> openVistaStock());
         view.setOnEliminarAlmacen(e -> eliminar());
         view.setOnRegresarMenu(e -> regresar());
         view.setOnCloseNuevoAlmacen(e -> cerrarVistaNuevo());
@@ -40,6 +42,16 @@ public class AlmacenController {
 
     private void openVistaEditar() {
         isEdit = true;
+        Almacen a = service.obtenerPorId(view.getIdAlmacenSeleccionado());
+        view.mostrarEditarAlmacen(a);
+    }
+    
+    private void openVistaLote() {
+        Almacen a = service.obtenerPorId(view.getIdAlmacenSeleccionado());
+        view.mostrarLotes(a);
+    }
+    
+    private void openVistaStock() {
         Almacen a = service.obtenerPorId(view.getIdAlmacenSeleccionado());
         view.mostrarEditarAlmacen(a);
     }

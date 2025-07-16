@@ -1,7 +1,6 @@
 package com.our.inventario.controller;
 
 import com.our.inventario.util.Servicios;
-import com.our.inventario.util.Sesion;
 import com.our.inventario.view.MenuView;
 
 public class MenuController {
@@ -13,7 +12,7 @@ public class MenuController {
         this.menuView.setOnOpenProductos(e -> abrirGestionProductos());
         this.menuView.setOnOpenCategorias(e-> abrirGestionCategorias());
         this.menuView.setOnOpenAlmacen(e-> abrirGestionAlmacenes());        
-        this.menuView.setOnOpenCategorias(e-> abrirGestionStock());
+        this.menuView.setOnOpenMovmimientos(e-> abrirGestionMovmimientos());
 
     }
 
@@ -35,8 +34,8 @@ public class MenuController {
         controller.mostrarVista();
     }
     
-    private void abrirGestionStock(){
-        var controller = new StockController(/*Servicios.getCategoriaService()*/);
+    private void abrirGestionMovmimientos(){
+        var controller = new MovimientoController(/*Servicios.getCategoriaService()*/);
         menuView.cerrar();
         controller.mostrarVista();
     }
