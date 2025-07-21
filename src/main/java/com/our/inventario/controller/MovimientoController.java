@@ -1,12 +1,24 @@
 package com.our.inventario.controller;
 
+import com.our.inventario.model.DetalleMovimiento;
+import com.our.inventario.model.NotaMovimiento;
+import com.our.inventario.service.AlmacenService;
+import com.our.inventario.service.NotaMovimientoService;
+import com.our.inventario.service.ProductoService;
 import com.our.inventario.view.MovimientosForm;
+
+import java.util.List;
 
 public class MovimientoController {
 
+    private final NotaMovimientoService movimientoService;
     private final MovimientosForm view;
+    private int tipoMovimiento; // 1 entrada, 2 salida
 
-    public MovimientoController() {
+    public MovimientoController(
+            NotaMovimientoService movimientoService
+    ) {
+        this.movimientoService = movimientoService;
         this.view = new MovimientosForm();
 
         view.setOnOpenNotaDeEntrada(e -> openNotaDeEntrada());
@@ -17,41 +29,69 @@ public class MovimientoController {
         view.setOnEliminarProducto(e -> eliminarProducto());
         view.setOnAgregarProducto(e -> agregarProducto());
         view.setOnLimpiar(e -> limpiarTabla());
+
     }
 
     public void mostrarVista() {
         view.mostrarElegirTipo();
     }
-    
+
     private void openNotaDeEntrada() {
-        // Mostrar formulario de registro de entrada
+        tipoMovimiento = 1;
+        view.limpiarFormulario();
+        view.cerrarDialog();
+        view.mostrarFormularioMovimiento("Nota de Entrada");
     }
 
     private void openNotaDeSalida() {
-        // Mostrar formulario de registro de salida
+        tipoMovimiento = 2;
+        view.limpiarFormulario();
+        view.mostrarFormularioMovimiento("Nota de Salida");
     }
 
     private void regresarMenu() {
-        // Cerrar todo y volver al menú principal
+        view.cerrar();
+        MenuController menu = new MenuController();
+        menu.mostrarVista();
     }
 
     private void retrocederEleccion() {
-        // Ocultar dialog de tipo movimiento
+        view.mostrarElegirTipo();
     }
 
     private void guardarMovimiento() {
-        // Guardar nota de movimiento (entrada o salida)
+        NotaMovimiento nota = new NotaMovimiento();
+        nota.setTipo(tipoMovimiento);
+        nota.setIdAlmacen(view.getAlmacenSeleccionado());
+        // nota.setIdUsuario(GlobalData.usuarioActual.getIdUsuario());
+        nota.setObservaciones(view.getObservaciones());
+
+        List<DetalleMovimiento> detalles = view.getProductosConCantidad(tipoMovimiento);
+
+        if (detalles.isEmpty()) {
+            view.mostrarError("Debe agregar al menos un producto.");
+            return;
+        }
+
+        boolean exito = movimientoService.insertar(nota, detalles);
+        if (exito) {
+            view.mostrarMensaje("Movimiento guardado exitosamente.");
+            view.limpiarFormulario();
+            view.mostrarElegirTipo();
+        } else {
+            view.mostrarError("Error al guardar el movimiento.");
+        }
     }
 
     private void eliminarProducto() {
-        // Eliminar producto de la tabla
+        view.eliminarProductoSeleccionado();
     }
 
     private void agregarProducto() {
-        // Agregar producto y cantidad a la tabla
+        view.agregarProductoATabla();
     }
 
     private void limpiarTabla() {
-        // Vaciar la tabla de productos del movimiento
+        view.limpiarTablaProductos();
     }
 }

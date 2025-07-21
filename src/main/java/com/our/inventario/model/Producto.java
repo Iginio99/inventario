@@ -96,4 +96,8 @@ public class Producto {
         this.fechaRegistro = fechaRegistro;
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

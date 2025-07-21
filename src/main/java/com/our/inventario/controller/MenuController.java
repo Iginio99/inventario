@@ -10,9 +10,9 @@ public class MenuController {
     public MenuController() {
         this.menuView = new MenuView();
         this.menuView.setOnOpenProductos(e -> abrirGestionProductos());
-        this.menuView.setOnOpenCategorias(e-> abrirGestionCategorias());
-        this.menuView.setOnOpenAlmacen(e-> abrirGestionAlmacenes());        
-        this.menuView.setOnOpenMovmimientos(e-> abrirGestionMovmimientos());
+        this.menuView.setOnOpenCategorias(e -> abrirGestionCategorias());
+        this.menuView.setOnOpenAlmacen(e -> abrirGestionAlmacenes());
+        this.menuView.setOnOpenMovmimientos(e -> abrirGestionMovmimientos());
 
     }
 
@@ -21,21 +21,22 @@ public class MenuController {
         menuView.cerrar();
         controller.mostrarVista();
     }
-    
-    private void abrirGestionCategorias(){
+
+    private void abrirGestionCategorias() {
         var controller = new CategoriaController(Servicios.getCategoriaService());
         menuView.cerrar();
         controller.mostrarVista();
     }
-    
-    private void abrirGestionAlmacenes(){
+
+    private void abrirGestionAlmacenes() {
         var controller = new AlmacenController(Servicios.getAlmacenService());
         menuView.cerrar();
         controller.mostrarVista();
     }
-    
-    private void abrirGestionMovmimientos(){
-        var controller = new MovimientoController(/*Servicios.getCategoriaService()*/);
+
+    private void abrirGestionMovmimientos() {
+        Servicios.getProductoService().listar();
+        var controller = new MovimientoController(Servicios.getNotaMovimientoService());
         menuView.cerrar();
         controller.mostrarVista();
     }

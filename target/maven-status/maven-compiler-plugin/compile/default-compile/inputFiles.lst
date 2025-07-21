@@ -18,11 +18,15 @@ D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\data\NodoProducto.
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\Inventario.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Almacen.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Categoria.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\DetalleMovimiento.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Lote.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\NotaMovimiento.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Producto.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\AlmacenRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\CategoriaRepository.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\DetalleMovimientoRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\LoteRepository.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\NotaMovimientoRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\ProductoRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\repository\UsuarioRepository.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Rol.java
@@ -31,6 +35,7 @@ D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\model\Usuario.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\AlmacenService.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\CategoriaService.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\LoteService.java
+D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\NotaMovimientoService.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\ProductoService.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\service\UsuarioService.java
 D:\AlexisAll\java\inventario\src\main\java\com\our\inventario\util\DbConnection.java

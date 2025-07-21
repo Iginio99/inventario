@@ -13,11 +13,13 @@ com\our\inventario\view\MovimientosForm.class
 com\our\inventario\data\NodoAlmacen.class
 com\our\inventario\model\Almacen.class
 com\our\inventario\view\CategoriaForm$4.class
+com\our\inventario\model\repository\NotaMovimientoRepository.class
 com\our\inventario\utils\algoritmos\algcategoria\ArbolCategoria.class
 com\our\inventario\data\GlobalData.class
 com\our\inventario\view\CategoriaForm.class
 com\our\inventario\view\StockForm$1.class
 com\our\inventario\data\NodoProducto.class
+com\our\inventario\model\DetalleMovimiento.class
 com\our\inventario\view\LoteView$3.class
 com\our\inventario\view\MenuView.class
 com\our\inventario\utils\algoritmos\algcategoria\ListaTempCategoria.class
@@ -47,6 +49,7 @@ com\our\inventario\data\NodoCategoria.class
 com\our\inventario\model\Usuario.class
 com\our\inventario\controller\CategoriaController.class
 com\our\inventario\view\LoteView$1.class
+com\our\inventario\model\NotaMovimiento.class
 com\our\inventario\utils\algoritmos\pilas\TipoOperacion.class
 com\our\inventario\view\ProductoView$1.class
 com\our\inventario\utils\algoritmos\pilas\AbsOperacion.class
@@ -64,6 +67,8 @@ com\our\inventario\view\CategoriaForm$2.class
 com\our\inventario\view\LoginView$1.class
 com\our\inventario\utils\algoritmos\arbolbinario\AbsNodo.class
 com\our\inventario\util\Either.class
+com\our\inventario\service\NotaMovimientoService.class
+com\our\inventario\model\repository\DetalleMovimientoRepository.class
 com\our\inventario\data\ListaAlmacen.class
 com\our\inventario\service\ProductoService.class
 com\our\inventario\model\Stock.class
